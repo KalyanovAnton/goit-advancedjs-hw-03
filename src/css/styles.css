@@ -10,7 +10,19 @@
   background: #ffffff;
   border-radius: 4px;
   padding: 8px 16px;
+  border: 1px solid #808080;
 }
+
+.gallery-input:hover{
+   border: 1px solid #000000;
+}
+
+.gallery-input:focus {
+  outline: none;
+  border: 2px solid #4E75FF; 
+  box-shadow: 0 0 5px #4E75FF;
+}
+
 .gallery-btn {
   display: flex;
   flex-direction: row;
@@ -30,6 +42,13 @@
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: 0.04em;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-btn:hover,
+.gallery-btn:focus{
+  background-color: #6C8CFF;
 }
 
 .gallery {
