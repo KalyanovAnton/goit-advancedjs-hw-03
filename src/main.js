@@ -23,15 +23,34 @@ const toSearchSubmit = event => {
 
   const searchedQuery = searchForm.elements.user_query.value;
 
-  refs.loaderEl.classList.add('active');
+  if (searchedQuery === '') {
+    iziToast.error({
+      title: '',
+      message:
+        'The field is empty.<br>Please enter something to continue.',
+      position: 'topRight',
+    });
+    refs.galleryEl.innerHTML = '';
+    return;
+  }
 
-  refs.galleryEl.innerHTML = '';
+  refs.loaderEl.classList.add('active');
 
   photoApi(searchedQuery)
     .finally(() => {
       refs.loaderEl.classList.remove('active');
     })
     .then(data => {
+      if (data.total === 0) {
+        iziToast.error({
+          title: '',
+          message:
+            'Sorry, there are no images matching<br>your search query. Please try again!',
+          position: 'topRight',
+        });
+        refs.galleryEl.innerHTML = '';
+        return;
+      }
       const galleryCreat = data.hits
         .map(pictureInfo => creatGalleryCard(pictureInfo))
         .join('');
@@ -40,14 +59,6 @@ const toSearchSubmit = event => {
 
       galleryLightBox.refresh();
 
-      if (data.total === 0) {
-        iziToast.error({
-          title: '',
-          message:
-            'Sorry, there are no images matching<br>your search query. Please try again!',
-          position: 'topRight',
-        });
-      }
       searchForm.reset();
     })
     .catch(error => {

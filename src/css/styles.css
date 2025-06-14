@@ -11,6 +11,7 @@
   border-radius: 4px;
   padding: 8px 16px;
   border: 1px solid #808080;
+  box-sizing: border-box;
 }
 
 .gallery-input:hover{
